@@ -37,6 +37,7 @@ public class ScoreDisplay : MonoBehaviour
         }
 
         valueChangedCalled = true;
+        animator.SetTrigger("Jolt");
         animator.SetBool("Shaking", true);
 
         StartCoroutine(SetToNewValue());
