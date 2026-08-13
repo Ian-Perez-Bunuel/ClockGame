@@ -60,7 +60,7 @@ public class HitBar : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            scoreDisplay.ChangeValue(50);
+            scoreDisplay.ChangeValue(-50);
             Remove();
         }
     }

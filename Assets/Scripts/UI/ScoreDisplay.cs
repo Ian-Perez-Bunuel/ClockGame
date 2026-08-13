@@ -13,7 +13,7 @@ public class ScoreDisplay : MonoBehaviour
     bool valueChangedCalled = false;
 
     // Amount
-    int amount = 0;
+    int amount = 500;
     int displayedAmount = 0;
 
     private void Start()

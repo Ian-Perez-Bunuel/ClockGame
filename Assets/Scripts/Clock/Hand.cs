@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
+    Animator animator;
+
     [Header("Stats")]
     public float speed;
     int dir = -1;
@@ -20,6 +22,7 @@ public class Hand : MonoBehaviour
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         sprite.color = color;
     }
 
@@ -36,6 +39,7 @@ public class Hand : MonoBehaviour
 
     public void Activate()
     {
+        animator.SetTrigger("Impact");
         StartCoroutine(MinuteHandStopped());
     }
 
