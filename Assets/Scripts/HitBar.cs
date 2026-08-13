@@ -1,8 +1,10 @@
-using UnityEditor.Rendering;
+using System.Collections;
 using UnityEngine;
 
 public class HitBar : MonoBehaviour
 {
+    Animator animator;
+
     [SerializeField] float shrinkSpeed;
     bool shrinking = true;
 
@@ -10,6 +12,8 @@ public class HitBar : MonoBehaviour
 
     public void Init(ScoreDisplay s)
     {
+        animator = GetComponent<Animator>();
+
         scoreDisplay = s;
         gameObject.SetActive(false);
     }
@@ -18,6 +22,7 @@ public class HitBar : MonoBehaviour
     {
         gameObject.SetActive(true);
         transform.localScale = new Vector3(1f, 1f, 1f);
+        shrinking = true;
 
         transform.position = pos;
         transform.rotation = Quaternion.Euler(0f, 0f, rotation + 90f);
@@ -61,7 +66,10 @@ public class HitBar : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             scoreDisplay.ChangeValue(-50);
-            Remove();
+
+            animator.SetTrigger("Hit");
+            shrinking = false;
+            // Remove handled via animation event
         }
-    }
+    }        
 }
