@@ -35,6 +35,11 @@ public class HitBar : MonoBehaviour
 
     private void Failed()
     {
+        // Cant fail if was hit
+        if (wasHit)
+            return;
+
+        Debug.Log("FAILED");
         gameObject.SetActive(false);
         // Screen shake
         CameraShake.StartHeavyShake();
@@ -59,6 +64,12 @@ public class HitBar : MonoBehaviour
 
     void Shrink()
     {
+
+        if (transform.localScale.x <= 0.05f)
+        {
+            Failed();
+        }
+
         if (!shrinking)
             return;
 
@@ -67,11 +78,6 @@ public class HitBar : MonoBehaviour
         Vector3 newScale = currentScale - new Vector3(speed, speed, speed);
 
         transform.localScale = newScale;
-
-        if (transform.localScale.x <= 0.001f)
-        {
-            Failed();
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
