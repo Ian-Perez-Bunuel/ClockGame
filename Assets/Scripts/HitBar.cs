@@ -7,6 +7,7 @@ public class HitBar : MonoBehaviour
 
     [SerializeField] float shrinkSpeed;
     bool shrinking = true;
+    bool wasHit = false;
 
     ScoreDisplay scoreDisplay;
 
@@ -20,7 +21,11 @@ public class HitBar : MonoBehaviour
 
     public void Spawn(Vector3 pos, float rotation)
     {
+        wasHit = false;
+
         gameObject.SetActive(true);
+
+        animator.SetTrigger("Spawn");
         transform.localScale = new Vector3(1f, 1f, 1f);
         shrinking = true;
 
@@ -28,8 +33,18 @@ public class HitBar : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, rotation + 90f);
     }
 
-    private void Remove()
+    private void Failed()
     {
+        gameObject.SetActive(false);
+        // Screen shake
+        CameraShake.StartHeavyShake();
+    }
+
+    private void OnHitAnimationEnd()
+    {
+        if (!wasHit)
+            return; 
+
         gameObject.SetActive(false);
         // Screen shake
         CameraShake.StartMediumShake();
@@ -55,18 +70,19 @@ public class HitBar : MonoBehaviour
 
         if (transform.localScale.x <= 0.001f)
         {
-            Remove();
+            Failed();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Triggered by: " + other.name);
-
         if (other.CompareTag("Player"))
         {
-            scoreDisplay.ChangeValue(-50);
+            Debug.Log("Triggered by: " + other.transform.parent.name);
 
+            wasHit = true;
+
+            scoreDisplay.ChangeValue(-50);
             animator.SetTrigger("Hit");
             shrinking = false;
             // Remove handled via animation event

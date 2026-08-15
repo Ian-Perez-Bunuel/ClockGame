@@ -60,6 +60,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: HourHand
       objectReference: {fileID: 0}
+    - target: {fileID: 8815833958734571208, guid: b51cfdbe027b1664280c73d2492cebb5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 7.731861
+      objectReference: {fileID: 0}
+    - target: {fileID: 8815833958734571208, guid: b51cfdbe027b1664280c73d2492cebb5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.318
+      objectReference: {fileID: 0}
     - target: {fileID: 8938588564486418184, guid: b51cfdbe027b1664280c73d2492cebb5, type: 3}
       propertyPath: m_Controller
       value: 

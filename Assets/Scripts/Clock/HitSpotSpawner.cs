@@ -30,7 +30,7 @@ public class HitSpotSpawner : MonoBehaviour
         }
 
         radius = radiusSetter.transform.localScale.x * 0.75f;
-        GetRandPointOnCircle();
+        GetRandPointInCircle();
 
         StartCoroutine(SpawnHitbarsTimer());
     }
@@ -41,7 +41,7 @@ public class HitSpotSpawner : MonoBehaviour
         {
             if (!hitbar.gameObject.activeSelf)
             {
-                Vector3 spawnPos = GetRandPointOnCircle();
+                Vector3 spawnPos = GetRandPointInCircle();
                 Vector2 direction = ((Vector2)transform.position - (Vector2)spawnPos).normalized;
                 float rotation = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
@@ -60,6 +60,14 @@ public class HitSpotSpawner : MonoBehaviour
         float angleRadians = angleDegrees * Mathf.Deg2Rad;
 
         return centre + new Vector2(Mathf.Cos(angleRadians), Mathf.Sin(angleRadians)) * radius;
+    }
+
+    public Vector2 GetRandPointInCircle()
+    {
+        Vector2 centre = transform.position;
+        Vector2 randPoint = centre + Random.insideUnitCircle * radius;
+
+        return randPoint;
     }
 
     IEnumerator SpawnHitbarsTimer()
